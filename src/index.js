@@ -1,5 +1,5 @@
-const { React } = require('react')
-import ReactDOM from 'react-dom'
+const React = require('react')
+const ReactDOM = require('react-dom')
 import App from './App'
 import { initContract } from './utils'
 
