@@ -2,7 +2,6 @@ const nearAPI = require("near-api-js");
 
 const CONTRACT_NAME = "camchis.testnet"
 
-
 function getConfig() {
     return {
       networkId: 'testnet',
