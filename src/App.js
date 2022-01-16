@@ -3,6 +3,8 @@ import React from 'react'
 import { login, logout } from './utils'
 import './global.css'
 import { providers, utils } from 'near-api-js'
+import twitter from "./assets/twitter.png";
+
 //import getConfig from './config'
 
 import Radio from '@mui/material/Radio';
@@ -99,7 +101,7 @@ export default function App() {
           {window.accountId}!
         </h1>
         <h2>
-          Balance in Wallet: {parseFloat(balance).toFixed(3)}
+          Balance: {parseFloat(balance).toFixed(3)}{' NEAR'}
         </h2>
         {showResult && (
           <>
@@ -129,10 +131,15 @@ export default function App() {
             <FormControlLabel value="5" control={<Radio />} label="5" labelPlacement="top"/>
           </RadioGroup>
 
-        <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '20px'}}>
+        <div style={{display: 'flex', marginTop: '20px', marginBottom: '50px'}}>
           <Button variant="contained" disableElevation onClick={ async () => { await playGame() }}>
             Play!
           </Button>
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+          <a href="https://twitter.com/camchis_">
+            <img src={twitter}/>
+          </a>
         </div>
       </main>
     </>
