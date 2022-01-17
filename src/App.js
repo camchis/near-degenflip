@@ -69,9 +69,9 @@ export default function App() {
         if (txid) {
           getTransactionState(txid, window.accountId)
             .then(txResult => {
-              setResult(txResult[0])
-              setWinOrLose(txResult[1])
-              setBalanceChange(txResult[2])
+              setResult(txResult[1])
+              setWinOrLose(txResult[2])
+              setBalanceChange(txResult[3])
               setShowResult(true)
             })
         }
