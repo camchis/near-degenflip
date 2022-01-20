@@ -71,7 +71,7 @@ export default function App() {
     return (
       <div style={{position: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', justifyContent: 'space-between'}}>
         <div id="coin" class={result}>
-          <div class="side-a"><img style={{height: '300px', width: '300px'}} src={heads}/></div>
+          <div class="side-a"><img style={{height: '', width: '300px'}} src={heads}/></div>
           <div class="side-b"><img style={{height: '300px', width: '300px'}} src={tails}/></div>
         </div>
         <h3 id="fadeIn" style={{color: (winOrLose == 'Won') ? '#e69a10' : 'red'}}>
