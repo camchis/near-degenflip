@@ -35,3 +35,5 @@ yarn-error.log*
 /contract
 /src/main.test.js
 /src/jest.init.js
+package-lock.json
+yarn.lock
