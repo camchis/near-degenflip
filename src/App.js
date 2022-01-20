@@ -69,11 +69,15 @@ export default function App() {
 
   function SpinAnimation() {
     return (
-      <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <div style={{position: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', justifyContent: 'space-between'}}>
         <div id="coin" class={result}>
-          <div class="side-a"><img style={{height: '250px', width: '250px'}} src={heads}/></div>
-          <div class="side-b"><img style={{height: '250px', width: '250px'}} src={tails}/></div>
+          <div class="side-a"><img style={{height: '300px', width: '300px'}} src={heads}/></div>
+          <div class="side-b"><img style={{height: '300px', width: '300px'}} src={tails}/></div>
         </div>
+        <h3 id="fadeIn" style={{color: (winOrLose == 'Won') ? '#e69a10' : 'red'}}>
+          {winOrLose}{' '}{utils.format.formatNearAmount(balanceChange)}{' NEAR'}
+        </h3>
+        <h2 id="fadeIn" className='playbutton' onClick={playAgain}>Flip again!</h2>
       </div>
     )
   }
@@ -122,40 +126,30 @@ export default function App() {
         Sign out
       </button>
       <main>
-        <h2>
-          Balance: {parseFloat(balance).toFixed(3)}{' NEAR'}
-        </h2>
         {showResult && (
           <>
-          {/* <h3 style={{color: (winOrLose == 'Won') ? 'green' : 'red'}}>
-            {'Last Result: ' }
-            {result}
-          </h3> */}
-          <SpinAnimation/>
-          <h3>
-            {winOrLose}{' '}{utils.format.formatNearAmount(balanceChange)}{' NEAR'}
-          </h3>
-          <h2 className='playbutton' onClick={playAgain}>Flip again!</h2>
+            <SpinAnimation/>
           </>
         )}
 
         {showGame && (
           <>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <h1 style={{marginTop: '0.25em', marginBottom: '0px'}}>Apeflip</h1>
+              <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
+            </div>
 
           <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
-            <ChoiceSelection passChoice={setChoice} style={{display: 'flex', marginBottom: '50px'}}/>
+            <ChoiceSelection passChoice={setChoice} style={{display: 'flex', marginBottom: '1em'}}/>
             <AmountSelection passAmount={setBetAmount} style={{display: 'flex', flexDirection: 'row'}}/>
           </div>
 
         
             {choice && betAmount && (
-              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginTop: '10px'}}>
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginTop: '0.25em'}}>
                 <p>
                   {'Betting on ' }{(choice == '0') ? 'Heads' : 'Tails'}{' for '}{betAmount}{' NEAR'}
                 </p>
-                {/* <Button colorScheme="yellow" variant="solid" onClick={ async () => { await playGame() }}>
-                  Play!
-                </Button> */}
                 <h2 className='playbutton' onClick={ async () => { await playGame() }}>Spin!</h2>
               </div>
             )}
