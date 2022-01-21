@@ -42,6 +42,7 @@ h1 {
 img {
   max-width: 100%;
   block-size: auto;
+  object-fit: contain;
 }
 
 a,
