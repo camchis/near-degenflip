@@ -4,14 +4,13 @@ import { login, logout } from './utils'
 import './global.css'
 import { providers, utils } from 'near-api-js'
 import twitter from "./assets/twitter.png";
+import heads from "./assets/heads.png";
+import tails from "./assets/tails.png";
 
-//import getConfig from './config'
+// import { Button } from '@chakra-ui/react'
 
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
+import ChoiceSelection from './components/ChoiceSelection'
+import AmountSelection from './components/AmountSelection'
 
 const provider = new providers.JsonRpcProvider(
   "https://archival-rpc.testnet.near.org"
@@ -19,15 +18,21 @@ const provider = new providers.JsonRpcProvider(
 
 export default function App() {
 
-  const [choice, setChoice] = React.useState('0')
-  const [betAmount, setBetAmount] = React.useState('0.1')
+  const [showGame, setShowGame] = React.useState(true)
+
+
+  const [choice, setChoice] = React.useState('')
+  const [betAmount, setBetAmount] = React.useState('')
 
   const [result, setResult] = React.useState()
+
   const [showResult, setShowResult] = React.useState(false)
   const [winOrLose, setWinOrLose] = React.useState()
   const [balanceChange, setBalanceChange] = React.useState()
 
   const [balance, setBalance] = React.useState()
+
+//  const [spinning, setShowSpinning] = React.useState()
 
   async function getBalance(accountId) {
     const account = await window.near.account(accountId)
@@ -49,9 +54,30 @@ export default function App() {
     );
   }
 
+  function playAgain() {
+    setShowResult(false)
+    setShowGame(true)
+  }
+
   async function getTransactionState(txHash, accountId) {
     const result = await provider.txStatus(txHash, accountId);
     return result.receipts_outcome[0].outcome.logs;
+  }
+
+
+  function SpinAnimation() {
+    return (
+      <div style={{position: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', justifyContent: 'space-between'}}>
+        <div id="coin" class={result}>
+          <div class="side-a"><img style={{height: '15em', width: '15em'}} src={heads}/></div>
+          <div class="side-b"><img style={{height: '15em', width: '15em'}} src={tails}/></div>
+        </div>
+        <h3 id="fadeIn" style={{color: (winOrLose == 'Won') ? '#e69a10' : 'red'}}>
+          {winOrLose}{' '}{utils.format.formatNearAmount(balanceChange)}{' NEAR'}
+        </h3>
+        <h2 id="fadeIn" className='playbutton' onClick={playAgain}>Flip again!</h2>
+      </div>
+    )
   }
 
   React.useEffect(
@@ -73,6 +99,11 @@ export default function App() {
               setWinOrLose(txResult[2])
               setBalanceChange(txResult[3])
               setShowResult(true)
+              setShowGame(false)
+              getBalance(window.accountId)
+              .then(bal => {
+                setBalance(bal)
+              })
             })
         }
       }
@@ -83,8 +114,16 @@ export default function App() {
   if (!window.walletConnection.isSignedIn()) {
     return (
       <main>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <h1 style={{marginTop: '0.25em', marginBottom: '0px'}}>Apeflip</h1>
+          <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
+        </div>
+        <div id="coin" class={Math.random() >= 0.5 ? "Heads" : "Tails"}>
+          <div class="side-a"><img style={{height: '15em', width: '15em'}} src={heads}/></div>
+          <div class="side-b"><img style={{height: '15em', width: '15em'}} src={tails}/></div>
+        </div>
         <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
-          <button onClick={login}>Sign in</button>
+          <h2 className='playbutton' onClick={login}>Sign in with NEAR wallet</h2>
         </p>
       </main>
     )
@@ -92,55 +131,44 @@ export default function App() {
 
   return (
     <>
-      <button className="link" style={{ float: 'right' }} onClick={logout}>
-        Sign out
-      </button>
+      <div style={{display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+        <div style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', textAlign: 'center'}}>
+          <p style={{marginTop: '0px', marginBottom: '0.05em', fontSize: 'calc(0.5em + 0.2vw)'}}>{window.accountId}</p>
+          <p style={{marginTop: '0px', fontSize: 'calc(0.5em + 0.2vw)'}}>{'Balance: '}{parseFloat(balance).toFixed(2)}{' NEAR'}</p>
+        </div>
+        <button className="link" style={{ float: 'right' }} onClick={logout}>
+          Sign out
+        </button>
+      </div>
       <main>
-        <h1>
-          {'Hello '}
-          {window.accountId}!
-        </h1>
-        <h2>
-          Balance: {parseFloat(balance).toFixed(3)}{' NEAR'}
-        </h2>
         {showResult && (
           <>
-          <h3 style={{color: (winOrLose == 'Won') ? 'green' : 'red'}}>
-            {'Last Result: ' }
-            {result}
-          </h3>
-          <h3>
-            {winOrLose}{' '}{utils.format.formatNearAmount(balanceChange)}{' NEAR'}
-          </h3>
+            <SpinAnimation/>
           </>
         )}
 
-          <FormLabel component="legend">Choice</FormLabel>
-          <RadioGroup row aria-label="choice" name="choice" defaultValue="heads" value={choice} onChange={(event) => setChoice(event.target.value)}>
-            <FormControlLabel value="0" control={<Radio />} label="Heads" labelPlacement="top"/>
-            <FormControlLabel value="1" control={<Radio />} label="Tails" labelPlacement="top"/>
-          </RadioGroup>
+        {showGame && (
+          <>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+              <h1 style={{marginTop: '0px', marginBottom: '0px'}}>Apeflip</h1>
+              <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
+            </div>
 
-          <FormLabel component="legend">Bet amount</FormLabel>
-          <RadioGroup row aria-label="bet" name="bet" defaultValue="0.1" value={betAmount} onChange={(event) => setBetAmount(event.target.value)}>
-            <FormControlLabel value="0.1" control={<Radio />} label="0.1" labelPlacement="top"/>
-            <FormControlLabel value="0.25" control={<Radio />} label="0.25" labelPlacement="top"/>
-            <FormControlLabel value="0.5" control={<Radio />} label="0.5" labelPlacement="top"/>
-            <FormControlLabel value="1" control={<Radio />} label="1" labelPlacement="top"/>
-            <FormControlLabel value="2.5" control={<Radio />} label="2.5" labelPlacement="top"/>
-            <FormControlLabel value="5" control={<Radio />} label="5" labelPlacement="top"/>
-          </RadioGroup>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
+              <ChoiceSelection passChoice={setChoice} style={{display: 'flex', marginBottom: '1em'}}/>
+              <AmountSelection passAmount={setBetAmount} style={{display: 'flex', flexDirection: 'row'}}/>
+            </div>
 
-        <div style={{display: 'flex', marginTop: '20px', marginBottom: '50px'}}>
-          <Button variant="contained" disableElevation onClick={ async () => { await playGame() }}>
-            Play!
-          </Button>
-        </div>
-        <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
-          <a href="https://twitter.com/camchis_">
-            <img src={twitter}/>
-          </a>
-        </div>
+            {choice && betAmount && (
+              <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginTop: '0.25em'}}>
+                <p>
+                  {'Betting on ' }{(choice == '0') ? 'Heads' : 'Tails'}{' for '}{betAmount}{' NEAR'}
+                </p>
+                <h2 className='playbutton' onClick={ async () => { await playGame() }}>Spin!</h2>
+              </div>
+            )}
+          </>
+        )}
       </main>
     </>
   )

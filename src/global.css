@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'Mario';
+  src: local('Mario'), url(./assets/PressStart2P.ttf) format('truetype');
+}
+
 html {
   --bg: #efefef;
   --fg: #1e1e1e;
@@ -14,7 +19,7 @@ html {
 
   background-color: var(--bg);
   color: var(--fg);
-  font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+  font-family: Mario;
   font-size: calc(0.9em + 0.5vw);
   line-height: 1.3;
 }
@@ -26,15 +31,10 @@ body {
 
 main {
   margin: 0 auto;
-  max-width: 25em;
+  max-width: 50em;
 }
 
 h1 {
-  background-position: center 1em;
-  background-repeat: no-repeat;
-  background-size: auto 1.5em;
-  margin-top: 0;
-  padding: 3.5em 0 0.5em;
   text-align: center;
 }
 
@@ -108,6 +108,22 @@ button.link {
 @keyframes loader {
   0% { transform: rotate(0deg) }
   100% { transform: rotate(360deg) }
+}
+
+.bet {
+  cursor: pointer;
+}
+
+.bet:hover, .bet:focus {
+  opacity: 0.5;
+}
+
+.playbutton {
+  cursor: pointer;
+}
+
+.playbutton:hover, .playbutton:focus {
+  opacity: 0.5;
 }
 
 fieldset {
@@ -184,4 +200,95 @@ aside footer *:last-child {
   input:focus {
     box-shadow: 0 0 10em rgba(255, 255, 255, 0.02) inset;
   }
+}
+
+
+
+#coin {
+  position: relative;
+  margin: 0 auto;
+  width: 15em;
+  height: 15em;
+  cursor: pointer;
+}
+#coin div {
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 100%;
+     -moz-border-radius: 100%;
+          border-radius: 100%;
+
+}
+.side-a {
+  background-image: url(assets/heads.png);
+  background-size: 15em 15em;
+}
+.side-b {
+  background-image: url(assets/tails.png);
+  background-size: 15em 15em;
+}
+
+#coin {
+  transition: -webkit-transform 1s ease-in;
+  -webkit-transform-style: preserve-3d;
+}
+#coin div {
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+}
+.side-a {
+  z-index: 100;
+}
+.side-b {
+  -webkit-transform: rotateY(-180deg);
+
+}
+
+#coin.Heads {
+  -webkit-animation: flipHeads 2s ease-out forwards;
+  -moz-animation: flipHeads 2s ease-out forwards;
+    -o-animation: flipHeads 2s ease-out forwards;
+       animation: flipHeads 2s ease-out forwards;
+}
+#coin.Tails {
+  -webkit-animation: flipTails 2s ease-out forwards;
+  -moz-animation: flipTails 2s ease-out forwards;
+    -o-animation: flipTails 2s ease-out forwards;
+       animation: flipTails 2s ease-out forwards;
+}
+
+#fadeIn {
+  -webkit-animation: fadeIn 5s;
+  -moz-animation: fadeIn 5s;
+    -o-animation: fadeIn 5s;
+       animation: fadeIn 5s;
+}
+
+@keyframes flipHeads {
+  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+  to { -webkit-transform: rotateY(1800deg); -moz-transform: rotateY(1800deg); transform: rotateY(1800deg); }
+}
+@keyframes flipTails {
+  from { -webkit-transform: rotateY(0); -moz-transform: rotateY(0); transform: rotateY(0); }
+  to { -webkit-transform: rotateY(1980deg); -moz-transform: rotateY(1980deg); transform: rotateY(1980deg); }
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-moz-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
 }
