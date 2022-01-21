@@ -207,8 +207,8 @@ aside footer *:last-child {
 #coin {
   position: relative;
   margin: 0 auto;
-  width: 300px;
-  height: 300px;
+  width: 15em;
+  height: 15em;
   cursor: pointer;
 }
 #coin div {
@@ -221,11 +221,11 @@ aside footer *:last-child {
 }
 .side-a {
   background-image: url(assets/heads.png);
-  background-size: 300px 300px;
+  background-size: 15em 15em;
 }
 .side-b {
   background-image: url(assets/tails.png);
-  background-size: 300px 300px;
+  background-size: 15em 15em;
 }
 
 #coin {

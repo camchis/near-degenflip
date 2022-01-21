@@ -18,29 +18,29 @@ export default function ChoiceSelection(props) {
       {selected == '0' ? (
         <>
           <div class='bet' value='Heads' style={{textAlign: 'center', opacity: '0.5', marginRight: '2em'}} onClick={() => handleSelection('0')}>
-            <img style={{height: '300px', width: '300px'}} src={heads}/>
+            <img style={{height: '15em', width: '15em'}} src={heads}/>
           </div>
           <div class='bet' value='Heads' style={{textAlign: 'center'}} onClick={() => handleSelection('1')}>
-            <img style={{height: '300px', width: '300px'}} src={tails}/>
+            <img style={{height: '15em', width: '15em'}} src={tails}/>
           </div>
         </>
       ):
       selected == '1' ? (
         <>
           <div class='bet' value='Heads' style={{textAlign: 'center', marginRight: '2em'}} onClick={() => handleSelection('0')}>
-            <img style={{height: '300px', width: '300px'}} src={heads}/>
+            <img style={{height: '15em', width: '15em'}} src={heads}/>
           </div>
           <div class='bet' value='Tails' style={{textAlign: 'center', opacity: '0.5'}} onClick={() => handleSelection('1')}>
-            <img style={{height: '300px', width: '300px'}} src={tails}/>
+            <img style={{height: '15em', width: '15em'}} src={tails}/>
           </div>
         </>
       ):
       <>
         <div class='bet' value='Heads' style={{textAlign: 'center', marginRight: '2em'}} onClick={() => handleSelection('0')}>
-          <img style={{height: '300px', width: '300px'}} src={heads}/>
+          <img style={{height: '15em', width: '15em'}} src={heads}/>
         </div>
         <div class='bet' value='Tails' style={{textAlign: 'center'}} onClick={() => handleSelection('1')}>
-          <img style={{height: '300px', width: '300px'}} src={tails}/>
+          <img style={{height: '15em', width: '15em'}} src={tails}/>
         </div>
       </>
       }

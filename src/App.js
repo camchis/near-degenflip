@@ -71,8 +71,8 @@ export default function App() {
     return (
       <div style={{position: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', justifyContent: 'space-between'}}>
         <div id="coin" class={result}>
-          <div class="side-a"><img style={{height: '', width: '300px'}} src={heads}/></div>
-          <div class="side-b"><img style={{height: '300px', width: '300px'}} src={tails}/></div>
+          <div class="side-a"><img style={{height: '15em', width: '15em'}} src={heads}/></div>
+          <div class="side-b"><img style={{height: '15em', width: '15em'}} src={tails}/></div>
         </div>
         <h3 id="fadeIn" style={{color: (winOrLose == 'Won') ? '#e69a10' : 'red'}}>
           {winOrLose}{' '}{utils.format.formatNearAmount(balanceChange)}{' NEAR'}
@@ -103,6 +103,10 @@ export default function App() {
               setShowResult(true)
               setShowGame(false)
               setShowSpinning(true)
+              getBalance(window.accountId)
+              .then(bal => {
+                setBalance(bal)
+              })
             })
         }
       }
@@ -113,8 +117,16 @@ export default function App() {
   if (!window.walletConnection.isSignedIn()) {
     return (
       <main>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <h1 style={{marginTop: '0.25em', marginBottom: '0px'}}>Apeflip</h1>
+          <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
+        </div>
+        <div id="coin" class={Math.random() >= 0.5 ? "Heads" : "Tails"}>
+          <div class="side-a"><img style={{height: '15em', width: '15em'}} src={heads}/></div>
+          <div class="side-b"><img style={{height: '15em', width: '15em'}} src={tails}/></div>
+        </div>
         <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
-          <button onClick={login}>Sign in</button>
+        <h2 className='playbutton' onClick={login}>Sign in with NEAR wallet</h2>
         </p>
       </main>
     )
@@ -122,9 +134,15 @@ export default function App() {
 
   return (
     <>
-      <button className="link" style={{ float: 'right' }} onClick={logout}>
-        Sign out
-      </button>
+      <div style={{display: 'flex', width: '100%', justifyContent: 'space-between' }}>
+        <div style={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', textAlign: 'center'}}>
+          <p style={{marginTop: '0px', marginBottom: '0.05em', fontSize: 'calc(0.5em + 0.2vw)'}}>{window.accountId}</p>
+          <p style={{marginTop: '0px', fontSize: 'calc(0.5em + 0.2vw)'}}>{'Balance: '}{parseFloat(balance).toFixed(2)}{' NEAR'}</p>
+        </div>
+        <button className="link" style={{ float: 'right' }} onClick={logout}>
+          Sign out
+        </button>
+      </div>
       <main>
         {showResult && (
           <>
@@ -135,7 +153,7 @@ export default function App() {
         {showGame && (
           <>
             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-              <h1 style={{marginTop: '0.25em', marginBottom: '0px'}}>Apeflip</h1>
+              <h1 style={{marginTop: '0px', marginBottom: '0px'}}>Apeflip</h1>
               <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
             </div>
 
