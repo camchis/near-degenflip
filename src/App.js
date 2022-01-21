@@ -124,6 +124,7 @@ export default function App() {
         </div>
         <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
           <h2 className='playbutton' onClick={login}>Sign in with NEAR wallet</h2>
+          <h4>(Testnet)</h4>
         </p>
       </main>
     )
