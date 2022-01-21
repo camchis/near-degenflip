@@ -25,7 +25,6 @@ export default function App() {
   const [betAmount, setBetAmount] = React.useState('')
 
   const [result, setResult] = React.useState()
-  const [resultImg, setResultImg] = React.useState()
 
   const [showResult, setShowResult] = React.useState(false)
   const [winOrLose, setWinOrLose] = React.useState()
@@ -33,7 +32,7 @@ export default function App() {
 
   const [balance, setBalance] = React.useState()
 
-  const [spinning, setShowSpinning] = React.useState()
+//  const [spinning, setShowSpinning] = React.useState()
 
   async function getBalance(accountId) {
     const account = await window.near.account(accountId)
@@ -44,7 +43,6 @@ export default function App() {
   }
 
   async function playGame() {
-    console.log('play')
     const parsedChoice = parseInt(choice);
 
     await contract.instant_play(
@@ -102,7 +100,6 @@ export default function App() {
               setBalanceChange(txResult[3])
               setShowResult(true)
               setShowGame(false)
-              setShowSpinning(true)
               getBalance(window.accountId)
               .then(bal => {
                 setBalance(bal)
@@ -126,7 +123,7 @@ export default function App() {
           <div class="side-b"><img style={{height: '15em', width: '15em'}} src={tails}/></div>
         </div>
         <p style={{ textAlign: 'center', marginTop: '2.5em' }}>
-        <h2 className='playbutton' onClick={login}>Sign in with NEAR wallet</h2>
+          <h2 className='playbutton' onClick={login}>Sign in with NEAR wallet</h2>
         </p>
       </main>
     )
@@ -157,12 +154,11 @@ export default function App() {
               <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
             </div>
 
-          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
-            <ChoiceSelection passChoice={setChoice} style={{display: 'flex', marginBottom: '1em'}}/>
-            <AmountSelection passAmount={setBetAmount} style={{display: 'flex', flexDirection: 'row'}}/>
-          </div>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between'}}>
+              <ChoiceSelection passChoice={setChoice} style={{display: 'flex', marginBottom: '1em'}}/>
+              <AmountSelection passAmount={setBetAmount} style={{display: 'flex', flexDirection: 'row'}}/>
+            </div>
 
-        
             {choice && betAmount && (
               <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginTop: '0.25em'}}>
                 <p>
@@ -172,12 +168,7 @@ export default function App() {
               </div>
             )}
           </>
-          )}
-        {/* <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px'}}>
-          <a href="https://twitter.com/camchis_">
-            <img src={twitter}/>
-          </a>
-        </div> */}
+        )}
       </main>
     </>
   )
