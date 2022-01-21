@@ -165,7 +165,7 @@ export default function App() {
                 <p>
                   {'Betting on ' }{(choice == '0') ? 'Heads' : 'Tails'}{' for '}{betAmount}{' NEAR'}
                 </p>
-                <h2 className='playbutton' onClick={ async () => { await playGame() }}>Spin!</h2>
+                <h2 className='playbutton' onClick={ async () => { await playGame() }}>Flip!</h2>
               </div>
             )}
           </>
