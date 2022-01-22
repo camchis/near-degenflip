@@ -114,7 +114,7 @@ export default function App() {
   if (!window.walletConnection.isSignedIn()) {
     return (
       <main>
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
           <h1 style={{marginTop: '0.25em', marginBottom: '0px'}}>Apeflip</h1>
           <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
         </div>
@@ -149,8 +149,8 @@ export default function App() {
         )}
 
         {showGame && (
-          <>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+          <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
+            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center'}}>
               <h1 style={{marginTop: '0px', marginBottom: '0px'}}>Apeflip</h1>
               <h2 style={{marginTop: '0.05em', marginBottom: '1em'}}>Double or nothing</h2>
             </div>
@@ -168,7 +168,7 @@ export default function App() {
                 <h2 className='playbutton' onClick={ async () => { await playGame() }}>Flip!</h2>
               </div>
             )}
-          </>
+          </div>
         )}
       </main>
     </>
