@@ -95,15 +95,19 @@ export default function App() {
         if (txid) {
           getTransactionState(txid, window.accountId)
             .then(txResult => {
-              setResult(txResult[1])
-              setWinOrLose(txResult[2])
-              setBalanceChange(txResult[3])
-              setShowResult(true)
-              setShowGame(false)
-              getBalance(window.accountId)
-              .then(bal => {
-                setBalance(bal)
-              })
+              if (txResult.length == 4) {
+                setResult(txResult[1])
+                setWinOrLose(txResult[2])
+                setBalanceChange(txResult[3])
+                setShowResult(true)
+                setShowGame(false)
+                getBalance(window.accountId)
+                .then(bal => {
+                  setBalance(bal)
+                })
+              } else {
+                console.log("CONTRACT BALANCE TOO LOW")
+              }
             })
         }
       }
