@@ -31,8 +31,11 @@ yarn-debug.log*
 yarn-error.log*
 
 
-## just frontend for now i think
-/contract
+/contract/target
+/contract/res
+/contract/.cargo
+/contract/compile.js
+
 /src/main.test.js
 /src/jest.init.js
 package-lock.json
